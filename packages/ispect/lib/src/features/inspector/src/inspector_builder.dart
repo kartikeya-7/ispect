@@ -48,10 +48,10 @@ class ISpectBuilder extends StatefulWidget {
   /// Set [isISpectEnabled] to false in production for security.
   const ISpectBuilder({
     required this.child,
+    required this.observer,
     this.isISpectEnabled = kDebugMode,
     this.options,
     this.theme,
-    this.observer,
     this.feedbackTheme,
     this.feedBackDarkTheme,
     this.feedbackBuilder,
@@ -72,7 +72,7 @@ class ISpectBuilder extends StatefulWidget {
   final bool isISpectEnabled;
 
   /// Navigation observer for route tracking.
-  final NavigatorObserver? observer;
+  final NavigatorObserver observer;
 
   /// Light theme for feedback widget.
   final FeedbackThemeData? feedbackTheme;
@@ -85,7 +85,8 @@ class ISpectBuilder extends StatefulWidget {
     BuildContext context,
     Future<void> Function(String text, {Map<String, dynamic>? extras}) onSubmit,
     ScrollController? controller,
-  )? feedbackBuilder;
+  )?
+  feedbackBuilder;
 
   /// Controller for the draggable debug panel.
   final DraggablePanelController? controller;
@@ -110,89 +111,92 @@ class _ISpectBuilderState extends State<ISpectBuilder> {
 
   @override
   Widget build(BuildContext context) => ListenableBuilder(
-        listenable: model,
-        builder: (context, _) {
-          final theme = Theme.of(context);
+    listenable: model,
+    builder: (context, _) {
+      final theme = Theme.of(context);
 
-          // Build the widget tree with the necessary layers.
-          var currentChild = widget.child;
+      // Build the widget tree with the necessary layers.
+      var currentChild = widget.child;
 
-          // Add inspector to the widget tree.
-          currentChild = Inspector(
-            options: model.options,
-            observer: widget.observer,
-            isPanelVisible: model.isISpectEnabled,
-            backgroundColor: adjustColorBrightness(
-              theme.colorScheme.primaryContainer,
-              0.6,
-            ),
-            selectedColor: theme.colorScheme.primaryContainer,
-            textColor: theme.colorScheme.onSurface,
-            selectedTextColor: theme.colorScheme.onSurface,
-            controller: widget.controller,
-            child: currentChild,
-          );
-
-          // Add performance overlay to the widget tree.
-          currentChild = ISpectPerformanceOverlayBuilder(
-            isPerformanceTrackingEnabled: model.isPerformanceTrackingEnabled,
-            child: currentChild,
-          );
-
-          // Add feedback button to the widget tree.
-          currentChild = BetterFeedback(
-            themeMode: context.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-            localizationsDelegates: ISpectLocalization.localizationDelegates,
-            localeOverride: model.options.locale,
-            theme: widget.feedbackTheme ??
-                FeedbackThemeData(
-                  background: Colors.grey[800]!,
-                  feedbackSheetColor: context.ispectTheme.colorScheme.surface,
-                  activeFeedbackModeColor:
-                      context.ispectTheme.colorScheme.primary,
-                  cardColor: context.ispectTheme.scaffoldBackgroundColor,
-                  bottomSheetDescriptionStyle:
-                      context.ispectTheme.textTheme.bodyMedium!.copyWith(
-                    color: Colors.grey[800],
-                  ),
-                  dragHandleColor: Colors.grey[400],
-                  inactiveColor: Colors.grey[700]!,
-                  textColor: Colors.grey[800]!,
-                ),
-            darkTheme: widget.feedBackDarkTheme ??
-                FeedbackThemeData(
-                  background: Colors.grey[800]!,
-                  feedbackSheetColor: context.ispectTheme.colorScheme.surface,
-                  activeFeedbackModeColor:
-                      context.ispectTheme.colorScheme.primary,
-                  cardColor: context.ispectTheme.scaffoldBackgroundColor,
-                  bottomSheetDescriptionStyle:
-                      context.ispectTheme.textTheme.bodyMedium!.copyWith(
-                    color: Colors.grey[300],
-                  ),
-                  dragHandleColor: Colors.grey[400],
-                  inactiveColor: Colors.grey[600]!,
-                  textColor: Colors.grey[300]!,
-                ),
-            mode: FeedbackMode.navigate,
-            feedbackBuilder: widget.feedbackBuilder ??
-                (_, onSubmit, scrollController) => SimpleFeedbackBuilder(
-                      onSubmit: onSubmit,
-                      scrollController: scrollController,
-                      theme: theme,
-                    ),
-            child: currentChild,
-          );
-
-          return ISpectScopeController(
-            model: model,
-            child: Navigator(
-              key: const ValueKey('ISpectNavigator'),
-              observers: [ISpectNavigatorObserver()],
-              pages: [MaterialPage(child: currentChild)],
-              onDidRemovePage: (_) {},
-            ),
-          );
-        },
+      // Add inspector to the widget tree.
+      currentChild = Inspector(
+        options: model.options,
+        observer: widget.observer,
+        isPanelVisible: model.isISpectEnabled,
+        backgroundColor: adjustColorBrightness(
+          theme.colorScheme.primaryContainer,
+          0.6,
+        ),
+        selectedColor: theme.colorScheme.primaryContainer,
+        textColor: theme.colorScheme.onSurface,
+        selectedTextColor: theme.colorScheme.onSurface,
+        controller: widget.controller,
+        child: currentChild,
       );
+
+      // Add performance overlay to the widget tree.
+      currentChild = ISpectPerformanceOverlayBuilder(
+        isPerformanceTrackingEnabled: model.isPerformanceTrackingEnabled,
+        child: currentChild,
+      );
+
+      // Add feedback button to the widget tree.
+      currentChild = BetterFeedback(
+        themeMode: context.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+        localizationsDelegates: ISpectLocalization.localizationDelegates,
+        localeOverride: model.options.locale,
+        theme:
+            widget.feedbackTheme ??
+            FeedbackThemeData(
+              background: Colors.grey[800]!,
+              feedbackSheetColor: context.ispectTheme.colorScheme.surface,
+              activeFeedbackModeColor: context.ispectTheme.colorScheme.primary,
+              cardColor: context.ispectTheme.scaffoldBackgroundColor,
+              bottomSheetDescriptionStyle: context
+                  .ispectTheme
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(color: Colors.grey[800]),
+              dragHandleColor: Colors.grey[400],
+              inactiveColor: Colors.grey[700]!,
+              textColor: Colors.grey[800]!,
+            ),
+        darkTheme:
+            widget.feedBackDarkTheme ??
+            FeedbackThemeData(
+              background: Colors.grey[800]!,
+              feedbackSheetColor: context.ispectTheme.colorScheme.surface,
+              activeFeedbackModeColor: context.ispectTheme.colorScheme.primary,
+              cardColor: context.ispectTheme.scaffoldBackgroundColor,
+              bottomSheetDescriptionStyle: context
+                  .ispectTheme
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(color: Colors.grey[300]),
+              dragHandleColor: Colors.grey[400],
+              inactiveColor: Colors.grey[600]!,
+              textColor: Colors.grey[300]!,
+            ),
+        mode: FeedbackMode.navigate,
+        feedbackBuilder:
+            widget.feedbackBuilder ??
+            (_, onSubmit, scrollController) => SimpleFeedbackBuilder(
+              onSubmit: onSubmit,
+              scrollController: scrollController,
+              theme: theme,
+            ),
+        child: currentChild,
+      );
+
+      return ISpectScopeController(
+        model: model,
+        child: Navigator(
+          key: const ValueKey('ISpectNavigator'),
+          observers: [widget.observer, ISpectNavigatorObserver()],
+          pages: [MaterialPage(child: currentChild)],
+          onDidRemovePage: (_) {},
+        ),
+      );
+    },
+  );
 }
