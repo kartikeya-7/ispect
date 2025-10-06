@@ -1,6 +1,6 @@
 name: ispect_workspace
 description: A workspace for ispect packages
-version: 1.0.0
+version: 4.4.0+102
 
 environment:
   sdk: ">=3.6.0 <3.9.0"
