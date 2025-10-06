@@ -16,7 +16,7 @@ dependencies:
   ispectify:
     git:
       url: https://github.com/kartikeya-7/ispect.git
-      ref: v.101
+      ref: v4.4.0+102
       path: packages/ispectify
 
   bloc: 9.0.0
