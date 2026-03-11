@@ -213,7 +213,8 @@ class ISpectGeneratedLocalizationZh extends ISpectGeneratedLocalization {
   String get issueCreated => '问题创建成功';
 
   @override
-  String get jiraInstruction => '1. 访问你的 Jira 网站。\n2. 点击左下角的个人头像。\n3. 选择“个人资料”。\n4. 点击“管理你的账户”。\n5. 选择“安全性”。\n6. 滚动至“创建和管理 API 令牌”并点击。\n7. 创建令牌，然后复制并粘贴。';
+  String get jiraInstruction =>
+      '1. 访问你的 Jira 网站。\n2. 点击左下角的个人头像。\n3. 选择“个人资料”。\n4. 点击“管理你的账户”。\n5. 选择“安全性”。\n6. 滚动至“创建和管理 API 令牌”并点击。\n7. 创建令牌，然后复制并粘贴。';
 
   @override
   String get logItemCopied => '日志项已复制到剪贴板';
@@ -629,7 +630,8 @@ class ISpectGeneratedLocalizationZh extends ISpectGeneratedLocalization {
   String get pasteYourFileContentBelow => '请在下方粘贴您的文件内容：';
 
   @override
-  String get pasteYourTxtOrJsonFileContentHere => '请在此处粘贴您的 .txt 或 .json 文件内容...';
+  String get pasteYourTxtOrJsonFileContentHere =>
+      '请在此处粘贴您的 .txt 或 .json 文件内容...';
 
   @override
   String get process => '处理';

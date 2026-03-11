@@ -1,6 +1,6 @@
 name: ispect
 description: Logging and inspector tool for Flutter development and testing
-version: 4.4.0+102
+version: 4.4.0+104
 homepage: https://github.com/yelmuratoff/ispect.git
 issue_tracker: https://github.com/yelmuratoff/ispect/issues
 publish_to: none
@@ -31,18 +31,18 @@ dependencies:
   flutter:
     sdk: flutter
   # Use an explicit version constraint instead of 'any' for pub scoring & reproducibility.
-  intl: ^0.19.0
+  intl: ^0.20.2
   flutter_localizations:
     sdk: flutter
   # meta pinned (avoid 'any') to satisfy pub validation and enable deterministic resolution.
-  meta: ^1.16.0
+  meta: ^1.17.0
   collection: ^1.19.0
 
   # Logging
   ispectify:
     git:
       url: https://github.com/kartikeya-7/ispect.git
-      ref: v4.4.0+102
+      ref: v4.4.0+104
       path: packages/ispectify
 
   # Utils

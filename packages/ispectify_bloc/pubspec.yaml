@@ -1,6 +1,6 @@
 name: ispectify_bloc
 description: BLoC state management integration for ISpect toolkit
-version: 4.4.0+102
+version: 4.4.0+104
 homepage: https://github.com/yelmuratoff/ispect.git
 issue_tracker: https://github.com/yelmuratoff/ispect/issues
 publish_to: none
@@ -16,11 +16,11 @@ dependencies:
   ispectify:
     git:
       url: https://github.com/kartikeya-7/ispect.git
-      ref: v4.4.0+102
+      ref: v4.4.0+104
       path: packages/ispectify
 
   bloc: 9.0.0
-  meta: 1.16.0
+  meta: ^1.17.0
 
 dev_dependencies:
   lints: ^5.1.1
