@@ -13,6 +13,7 @@ import 'package:ispect/src/common/controllers/draggable_button_controller.dart';
 import 'package:ispect/src/common/extensions/context.dart';
 import 'package:ispect/src/common/widgets/builder/multi_value_listenable.dart'
     as multiListener;
+import 'package:ispect/src/common/widgets/builder/multi_value_listenable.dart';
 import 'package:ispect/src/features/inspector/src/inspector/box_info.dart';
 import 'package:ispect/src/features/inspector/src/inspector/overlay.dart';
 import 'package:ispect/src/features/inspector/src/keyboard_handler.dart';
@@ -425,11 +426,15 @@ class InspectorState extends State<Inspector> {
                 _byteDataStateNotifier,
               ],
               builder: (context) => DraggablePanel(
-                theme: DraggablePanelTheme(
-                  panelBackgroundColor: context.isDarkMode
-                      ? context.ispectTheme.colorScheme.primaryContainer
-                      : context.ispectTheme.colorScheme.primary,
-                ),
+                borderRadius: const BorderRadius.all(Radius.circular(16)),
+                backgroundColor: context.isDarkMode
+                    ? context.ispectTheme.colorScheme.primaryContainer
+                    : context.ispectTheme.colorScheme.primary,
+                // theme: DraggablePanelTheme(
+                //   panelBackgroundColor: context.isDarkMode
+                //       ? context.ispectTheme.colorScheme.primaryContainer
+                //       : context.ispectTheme.colorScheme.primary,
+                // ),
                 controller: _draggablePanelController,
                 items: [
                   if (widget.options.isLogPageEnabled)
