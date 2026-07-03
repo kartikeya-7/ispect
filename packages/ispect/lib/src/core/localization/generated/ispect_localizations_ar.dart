@@ -605,34 +605,7 @@ class ISpectGeneratedLocalizationAr extends ISpectGeneratedLocalization {
   String get openPath => 'فتح المسار';
 
   @override
-  String get loadFileContent => 'تحميل محتوى الملف';
-
-  @override
-  String get chooseHowToLoadYourFile => 'اختر كيفية تحميل ملفك';
-
-  @override
   String get pasteContent => 'لصق المحتوى';
-
-  @override
-  String get pasteTxtOrJsonHere => 'انسخ محتوى ملف .txt أو .json والصقه هنا';
-
-  @override
-  String get pickFiles => 'اختيار ملفات';
-
-  @override
-  String get selectTxtOrJsonFromDevice => 'اختر ملفات .txt أو .json من جهازك';
-
-  @override
-  String get onlyTxtAndJsonSupported =>
-      'يتم دعم ملفات .txt و .json فقط (الحد الأقصى 10MB)';
-
-  @override
-  String get and => 'و';
-
-  @override
-  String onlyExtensionsSupported(Object extensions, Object max) {
-    return 'يتم دعم ملفات $extensions فقط (الحد الأقصى $max)';
-  }
 
   @override
   String get cancel => 'إلغاء';

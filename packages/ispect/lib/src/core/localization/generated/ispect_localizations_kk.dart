@@ -615,37 +615,7 @@ class ISpectGeneratedLocalizationKk extends ISpectGeneratedLocalization {
   String get openPath => 'Жолды ашу';
 
   @override
-  String get loadFileContent => 'Файл мазмұнын жүктеу';
-
-  @override
-  String get chooseHowToLoadYourFile =>
-      'Файлыңызды қалай жүктеу керегін таңдаңыз';
-
-  @override
   String get pasteContent => 'Мазмұнды қою';
-
-  @override
-  String get pasteTxtOrJsonHere =>
-      '.txt немесе .json файлдың мазмұнын көшіріп, осында қойыңыз';
-
-  @override
-  String get pickFiles => 'Файлдарды таңдау';
-
-  @override
-  String get selectTxtOrJsonFromDevice =>
-      'Құрылғыңыздан .txt немесе .json файлдарын таңдаңыз';
-
-  @override
-  String get onlyTxtAndJsonSupported =>
-      'Тек .txt және .json файлдары қолдау табады (ең көп 10 МБ)';
-
-  @override
-  String get and => 'және';
-
-  @override
-  String onlyExtensionsSupported(Object extensions, Object max) {
-    return 'Тек $extensions файлдары қолдау табады (ең көп $max)';
-  }
 
   @override
   String get cancel => 'Болдырмау';

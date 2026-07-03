@@ -612,36 +612,7 @@ class ISpectGeneratedLocalizationHi extends ISpectGeneratedLocalization {
   String get openPath => 'पाथ खोलें';
 
   @override
-  String get loadFileContent => 'फ़ाइल सामग्री लोड करें';
-
-  @override
-  String get chooseHowToLoadYourFile => 'अपनी फ़ाइल कैसे लोड करें, चुनें';
-
-  @override
   String get pasteContent => 'सामग्री पेस्ट करें';
-
-  @override
-  String get pasteTxtOrJsonHere =>
-      '.txt या .json फ़ाइल की सामग्री कॉपी करें और यहाँ पेस्ट करें';
-
-  @override
-  String get pickFiles => 'फ़ाइलें चुनें';
-
-  @override
-  String get selectTxtOrJsonFromDevice =>
-      'डिवाइस से .txt या .json फ़ाइलें चुनें';
-
-  @override
-  String get onlyTxtAndJsonSupported =>
-      'केवल .txt और .json फ़ाइलें समर्थित हैं (अधिकतम 10MB)';
-
-  @override
-  String get and => 'और';
-
-  @override
-  String onlyExtensionsSupported(Object extensions, Object max) {
-    return 'केवल $extensions फ़ाइलें समर्थित हैं (अधिकतम $max)';
-  }
 
   @override
   String get cancel => 'रद्द करें';

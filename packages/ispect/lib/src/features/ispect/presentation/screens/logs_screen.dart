@@ -9,7 +9,6 @@ import 'package:ispect/src/common/utils/screen_size.dart';
 import 'package:ispect/src/common/widgets/builder/widget_builder.dart';
 import 'package:ispect/src/common/widgets/gap/gap.dart';
 import 'package:ispect/src/common/widgets/gap/sliver_gap.dart';
-import 'package:ispect/src/features/ispect/domain/models/file_processing_result.dart';
 import 'package:ispect/src/features/ispect/presentation/screens/daily_sessions.dart';
 import 'package:ispect/src/features/ispect/presentation/screens/navigation_flow.dart';
 import 'package:ispect/src/features/ispect/presentation/widgets/app_bar.dart';
@@ -234,7 +233,7 @@ class _LogsScreenState extends State<LogsScreen> {
   ISpectActionItem _buildLogViewerAction() => ISpectActionItem(
         title: context.ispectL10n.logViewer,
         icon: Icons.developer_mode_rounded,
-        onTap: (context) => _showFileOptionsDialog(),
+        onTap: (context) => _showPasteDialog(),
       );
 
   ISpectActionItem _buildAppDataAction(BuildContext context) =>
@@ -244,18 +243,6 @@ class _LogsScreenState extends State<LogsScreen> {
         onTap: (context) => const AppDataScreen().push(context),
       );
 
-  Future<void> _showFileOptionsDialog() async {
-    if (!mounted) return;
-    await showDialog<void>(
-      context: context,
-      builder: (context) => _FileOptionsDialog(
-        onPasteContent: _showPasteDialog,
-        onPickFiles: _pickFiles,
-        fileService: _fileService,
-      ),
-    );
-  }
-
   void _showPasteDialog() {
     if (!mounted) return;
     showDialog<void>(
@@ -263,28 +250,6 @@ class _LogsScreenState extends State<LogsScreen> {
       builder: (context) => _PasteContentDialog(
         onContentProcessed: _processPastedContent,
       ),
-    );
-  }
-
-  Future<void> _pickFiles() async {
-    final result = await _fileService.pickAndProcessFiles();
-
-    if (!mounted) return;
-
-    if (result.success) {
-      await result.action(context);
-    } else {
-      _showFileProcessingError(result);
-    }
-  }
-
-  void _showFileProcessingError(FileProcessingResult result) {
-    final errorMessage = result.error?.toString() ?? '';
-
-    ISpectToaster.showErrorToast(
-      context,
-      title: 'File Processing Error',
-      message: errorMessage,
     );
   }
 
@@ -508,117 +473,6 @@ class _DetailView extends StatelessWidget {
             onClose: onClose,
           ),
         ),
-      );
-}
-
-/// Dialog widget for selecting file loading options
-class _FileOptionsDialog extends StatelessWidget {
-  const _FileOptionsDialog({
-    required this.onPasteContent,
-    required this.onPickFiles,
-    required this.fileService,
-  });
-
-  final VoidCallback onPasteContent;
-  final VoidCallback onPickFiles;
-  final FileProcessingService fileService;
-
-  @override
-  Widget build(BuildContext context) => AlertDialog(
-        title: Text(context.ispectL10n.loadFileContent),
-        content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '${context.ispectL10n.chooseHowToLoadYourFile}:',
-                style: const TextStyle(fontSize: 16),
-              ),
-              const Gap(16),
-              _FileOptionTile(
-                icon: Icons.content_paste,
-                title: context.ispectL10n.pasteContent,
-                subtitle: context.ispectL10n.pasteTxtOrJsonHere,
-                onTap: () {
-                  Navigator.of(context).pop();
-                  onPasteContent();
-                },
-              ),
-              const Gap(16),
-              _FileOptionTile(
-                icon: Icons.file_open,
-                title: context.ispectL10n.pickFiles,
-                subtitle: context.ispectL10n.selectTxtOrJsonFromDevice,
-                onTap: () {
-                  Navigator.of(context).pop();
-                  onPickFiles();
-                },
-              ),
-              const Gap(8),
-              const Divider(),
-              const Gap(8),
-              _FileOptionHint(
-                text: context.ispectL10n.onlyExtensionsSupported(
-                  fileService.supportedExtensions
-                      .map((e) => '.$e')
-                      .join(' ${context.ispectL10n.and} '),
-                  fileService.maxFileSizeFormatted,
-                ),
-                color: Colors.orange,
-              ),
-            ],
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(context.ispectL10n.cancel),
-          ),
-        ],
-      );
-}
-
-/// Reusable tile widget for file options
-class _FileOptionTile extends StatelessWidget {
-  const _FileOptionTile({
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-    required this.onTap,
-  });
-
-  final IconData icon;
-  final String title;
-  final String subtitle;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) => ListTile(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-        ),
-        leading: Icon(icon),
-        title: Text(title),
-        subtitle: Text(subtitle),
-        onTap: onTap,
-      );
-}
-
-/// Hint text widget for file options
-class _FileOptionHint extends StatelessWidget {
-  const _FileOptionHint({
-    required this.text,
-    required this.color,
-  });
-
-  final String text;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) => Text(
-        text,
-        style: TextStyle(fontSize: 12, color: color),
       );
 }
 
